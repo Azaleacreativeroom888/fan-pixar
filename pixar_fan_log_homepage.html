@@ -1,0 +1,734 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pixar Fan Log</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Serif+JP:wght@300;400&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1410;
+    --cream: #f5f0e8;
+    --warm: #e8dcc8;
+    --gold: #c8963c;
+    --rust: #8b3a2a;
+    --dim: #6b6058;
+    --card-bg: #faf7f2;
+    --border: rgba(26,20,16,0.12);
+  }
+
+  body {
+    font-family: 'Noto Serif JP', serif;
+    background: var(--cream);
+    color: var(--ink);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Film grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.5;
+  }
+
+  /* ── HEADER ── */
+  header {
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    position: sticky;
+    top: 0;
+    background: rgba(245,240,232,0.92);
+    backdrop-filter: blur(8px);
+    z-index: 100;
+  }
+
+  .logo {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--dim);
+  }
+
+  nav {
+    display: flex;
+    gap: 32px;
+  }
+
+  nav a {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--dim);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  nav a:hover { color: var(--ink); }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 80px 40px 60px;
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 40px;
+    align-items: end;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(40px, 6vw, 72px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -1px;
+    margin-bottom: 24px;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--rust);
+  }
+
+  .hero-body {
+    font-size: 15px;
+    line-height: 1.9;
+    color: var(--dim);
+    max-width: 520px;
+  }
+
+  .hero-aside {
+    text-align: right;
+    padding-bottom: 8px;
+  }
+
+  .issue-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 80px;
+    font-weight: 700;
+    color: var(--warm);
+    line-height: 1;
+    letter-spacing: -4px;
+  }
+
+  .issue-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: var(--dim);
+    text-transform: uppercase;
+  }
+
+  /* ── FILM STRIP TICKER ── */
+  .filmstrip {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--ink);
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 0;
+  }
+
+  .filmstrip-inner {
+    display: inline-flex;
+    animation: ticker 22s linear infinite;
+  }
+
+  .filmstrip-item {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: rgba(245,240,232,0.4);
+    text-transform: uppercase;
+    padding: 10px 32px;
+    border-right: 1px solid rgba(245,240,232,0.08);
+  }
+
+  .filmstrip-item span {
+    color: var(--gold);
+    margin-right: 12px;
+  }
+
+  @keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* ── MAIN GRID ── */
+  .main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 40px 80px;
+  }
+
+  /* ── SECTION HEADER ── */
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 48px 0 24px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 32px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 400;
+    letter-spacing: -0.3px;
+  }
+
+  .section-meta {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: var(--dim);
+    text-transform: uppercase;
+  }
+
+  /* ── POSTS ── */
+  .posts {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .post {
+    display: grid;
+    grid-template-columns: 64px 1fr auto;
+    align-items: start;
+    gap: 24px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.15s;
+    cursor: pointer;
+  }
+
+  .post:hover { background: rgba(200,150,60,0.04); }
+  .post:hover .post-num { color: var(--gold); }
+  .post:hover .post-arrow { opacity: 1; transform: translateX(0); }
+
+  .post-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--warm);
+    line-height: 1;
+    text-align: right;
+    transition: color 0.2s;
+    padding-top: 2px;
+  }
+
+  .post-content { flex: 1; }
+
+  .post-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .post-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+
+  .post-excerpt {
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--dim);
+  }
+
+  .post-arrow {
+    font-size: 18px;
+    color: var(--gold);
+    opacity: 0;
+    transform: translateX(-6px);
+    transition: opacity 0.2s, transform 0.2s;
+    padding-top: 6px;
+  }
+
+  /* ── QUOTE BLOCK ── */
+  .quote-block {
+    margin: 48px 0;
+    padding: 40px;
+    background: var(--ink);
+    border-left: 3px solid var(--gold);
+    position: relative;
+  }
+
+  .quote-mark {
+    font-family: 'Playfair Display', serif;
+    font-size: 80px;
+    color: var(--gold);
+    opacity: 0.3;
+    line-height: 0.6;
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  .quote-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-style: italic;
+    color: var(--cream);
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .quote-source {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  /* ── GALLERY ── */
+  .gallery {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 12px;
+    margin-bottom: 48px;
+  }
+
+  .gallery-item {
+    background: var(--warm);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: unset;
+  }
+
+  .gallery-item:first-child {
+    grid-row: 1 / 3;
+    aspect-ratio: 3/4;
+  }
+
+  .gallery-item:not(:first-child) {
+    aspect-ratio: 4/3;
+  }
+
+  .gallery-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: var(--dim);
+    min-height: 140px;
+  }
+
+  .gallery-placeholder-icon {
+    font-size: 28px;
+    opacity: 0.3;
+  }
+
+  .gallery-placeholder-text {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.4;
+  }
+
+  .gallery-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 12px 16px;
+    background: linear-gradient(transparent, rgba(26,20,16,0.6));
+  }
+
+  .gallery-caption span {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: rgba(245,240,232,0.7);
+    text-transform: uppercase;
+  }
+
+  /* ── SIDEBAR MODULES ── */
+  .content-wrap {
+    display: grid;
+    grid-template-columns: 1fr 260px;
+    gap: 40px;
+    margin-top: 48px;
+  }
+
+  .sidebar {}
+
+  .sidebar-module {
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sidebar-module:first-child {
+    border-top: 1px solid var(--border);
+  }
+
+  .sidebar-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .film-list { list-style: none; }
+
+  .film-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    align-items: center;
+  }
+
+  .film-list li:last-child { border-bottom: none; }
+
+  .film-list .rank {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--dim);
+    min-width: 20px;
+  }
+
+  .film-list .title { flex: 1; padding: 0 12px; }
+
+  .film-list .year {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--dim);
+  }
+
+  .rating-bar {
+    height: 2px;
+    background: var(--warm);
+    border-radius: 1px;
+    margin-top: 6px;
+    overflow: hidden;
+  }
+
+  .rating-fill {
+    height: 100%;
+    background: var(--gold);
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--dim);
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+    border-radius: 1px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .tag:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 32px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-style: italic;
+    color: var(--dim);
+  }
+
+  .footer-copy {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: var(--dim);
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Pixar Fan Log</div>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">Blog</a>
+    <a href="#">Gallery</a>
+    <a href="#">About</a>
+  </nav>
+</header>
+
+<!-- Film strip ticker -->
+<div class="filmstrip">
+  <div class="filmstrip-inner">
+    <div class="filmstrip-item"><span>◆</span>Toy Story</div>
+    <div class="filmstrip-item"><span>◆</span>Soul</div>
+    <div class="filmstrip-item"><span>◆</span>Up</div>
+    <div class="filmstrip-item"><span>◆</span>Coco</div>
+    <div class="filmstrip-item"><span>◆</span>Inside Out 2</div>
+    <div class="filmstrip-item"><span>◆</span>Finding Nemo</div>
+    <div class="filmstrip-item"><span>◆</span>WALL-E</div>
+    <div class="filmstrip-item"><span>◆</span>Luca</div>
+    <div class="filmstrip-item"><span>◆</span>Turning Red</div>
+    <div class="filmstrip-item"><span>◆</span>The Incredibles</div>
+    <!-- duplicate for seamless loop -->
+    <div class="filmstrip-item"><span>◆</span>Toy Story</div>
+    <div class="filmstrip-item"><span>◆</span>Soul</div>
+    <div class="filmstrip-item"><span>◆</span>Up</div>
+    <div class="filmstrip-item"><span>◆</span>Coco</div>
+    <div class="filmstrip-item"><span>◆</span>Inside Out 2</div>
+    <div class="filmstrip-item"><span>◆</span>Finding Nemo</div>
+    <div class="filmstrip-item"><span>◆</span>WALL-E</div>
+    <div class="filmstrip-item"><span>◆</span>Luca</div>
+    <div class="filmstrip-item"><span>◆</span>Turning Red</div>
+    <div class="filmstrip-item"><span>◆</span>The Incredibles</div>
+  </div>
+</div>
+
+<!-- Hero -->
+<div class="hero">
+  <div>
+    <div class="hero-eyebrow">Fan Zine ◆ Animation</div>
+    <h1 class="hero-title">
+      ピクサーの映画が<br>
+      <em>好きすぎる</em>という<br>
+      気持ちのログ
+    </h1>
+    <p class="hero-body">
+      正しい解釈とかじゃなくて、「ここ好き」「なんか分からないけど良い」を大事にしてます。
+      感情がぐちゃぐちゃになったときの場所。
+    </p>
+  </div>
+  <div class="hero-aside">
+    <div class="issue-number">07</div>
+    <div class="issue-label">Vol. 2026</div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- Quote -->
+  <div class="quote-block">
+    <span class="quote-mark">"</span>
+    <p class="quote-text">この表情なんなんだろう。分からないけど、めちゃくちゃ好き。</p>
+    <div class="quote-source">— Fan Log, Issue 06</div>
+  </div>
+
+  <div class="content-wrap">
+    <!-- Main column -->
+    <div>
+      <div class="section-header">
+        <h2 class="section-title">Latest Posts</h2>
+        <span class="section-meta">最新記事</span>
+      </div>
+
+      <div class="posts">
+        <div class="post" onclick="sendPrompt('ピクサーで一番感情がぐちゃぐちゃになるシーンについて話して')">
+          <div class="post-num">01</div>
+          <div class="post-content">
+            <div class="post-tag">感情 ◆ Scene</div>
+            <h3 class="post-title">このシーンが好きすぎる問題</h3>
+            <p class="post-excerpt">感情がぐちゃぐちゃになるやつ。なぜあの数分間でこんなに揺さぶられるのか、うまく言語化できないけど語りたい。</p>
+          </div>
+          <div class="post-arrow">→</div>
+        </div>
+
+        <div class="post" onclick="sendPrompt('ピクサーキャラクターの表情の作り方や感情表現について語って')">
+          <div class="post-num">02</div>
+          <div class="post-content">
+            <div class="post-tag">表情 ◆ Character</div>
+            <h3 class="post-title">この表情、なんなんだろう</h3>
+            <p class="post-excerpt">分からないけどめちゃくちゃ好き。ピクサーのキャラクターの表情には言葉にできない何かがある。</p>
+          </div>
+          <div class="post-arrow">→</div>
+        </div>
+
+        <div class="post" onclick="sendPrompt('ピクサー映画の音楽が感情に与える影響について話して')">
+          <div class="post-num">03</div>
+          <div class="post-content">
+            <div class="post-tag">音楽 ◆ Score</div>
+            <h3 class="post-title">音楽が来た瞬間に終わった</h3>
+            <p class="post-excerpt">映像と音楽が重なるあの瞬間。Michael Giacchino の仕事は反則すぎると思う。</p>
+          </div>
+          <div class="post-arrow">→</div>
+        </div>
+      </div>
+
+      <!-- Gallery -->
+      <div class="section-header" style="margin-top: 40px;">
+        <h2 class="section-title">Illustration</h2>
+        <span class="section-meta">ファンアート</span>
+      </div>
+
+      <div class="gallery">
+        <div class="gallery-item">
+          <div class="gallery-placeholder">
+            <div class="gallery-placeholder-icon">◈</div>
+            <div class="gallery-placeholder-text">Fan Art 01</div>
+          </div>
+          <div class="gallery-caption"><span>Main Work</span></div>
+        </div>
+        <div class="gallery-item">
+          <div class="gallery-placeholder">
+            <div class="gallery-placeholder-icon">◈</div>
+            <div class="gallery-placeholder-text">Fan Art 02</div>
+          </div>
+          <div class="gallery-caption"><span>Sketch</span></div>
+        </div>
+        <div class="gallery-item">
+          <div class="gallery-placeholder">
+            <div class="gallery-placeholder-icon">◈</div>
+            <div class="gallery-placeholder-text">Fan Art 03</div>
+          </div>
+          <div class="gallery-caption"><span>Study</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-module">
+        <div class="sidebar-label">好きな作品 Top 5</div>
+        <ul class="film-list">
+          <li>
+            <span class="rank">1</span>
+            <span class="title">Soul</span>
+            <span class="year">2020</span>
+          </li>
+          <li>
+            <span class="rank">2</span>
+            <span class="title">Coco</span>
+            <span class="year">2017</span>
+          </li>
+          <li>
+            <span class="rank">3</span>
+            <span class="title">Up</span>
+            <span class="year">2009</span>
+          </li>
+          <li>
+            <span class="rank">4</span>
+            <span class="title">Inside Out 2</span>
+            <span class="year">2024</span>
+          </li>
+          <li>
+            <span class="rank">5</span>
+            <span class="title">WALL-E</span>
+            <span class="year">2008</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sidebar-module">
+        <div class="sidebar-label">Mood Meter</div>
+        <div style="display: flex; flex-direction: column; gap: 12px; font-size: 12px;">
+          <div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+              <span>泣いた</span>
+              <span style="font-family: 'Space Mono'; font-size: 10px; color: var(--dim);">87%</span>
+            </div>
+            <div class="rating-bar"><div class="rating-fill" style="width: 87%"></div></div>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+              <span>笑った</span>
+              <span style="font-family: 'Space Mono'; font-size: 10px; color: var(--dim);">72%</span>
+            </div>
+            <div class="rating-bar"><div class="rating-fill" style="width: 72%"></div></div>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+              <span>考えた</span>
+              <span style="font-family: 'Space Mono'; font-size: 10px; color: var(--dim);">95%</span>
+            </div>
+            <div class="rating-bar"><div class="rating-fill" style="width: 95%"></div></div>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+              <span>語りたい</span>
+              <span style="font-family: 'Space Mono'; font-size: 10px; color: var(--dim);">100%</span>
+            </div>
+            <div class="rating-bar"><div class="rating-fill" style="width: 100%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-module">
+        <div class="sidebar-label">Topics</div>
+        <div class="tags">
+          <span class="tag">感情</span>
+          <span class="tag">音楽</span>
+          <span class="tag">演出</span>
+          <span class="tag">キャラクター</span>
+          <span class="tag">考察</span>
+          <span class="tag">作画</span>
+          <span class="tag">セリフ</span>
+          <span class="tag">泣ける</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">Pixar Fan Log</div>
+  <div class="footer-copy">© Fan Log — All feelings reserved</div>
+</footer>
+
+</body>
+</html>
