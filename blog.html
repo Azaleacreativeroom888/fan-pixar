@@ -15,11 +15,8 @@
   --yellow:#FFE14D;
   --yellow-dark:#E6C400;
   --blue:#4DAAFF;
-  --blue-dark:#2288E6;
   --green:#5CE65C;
-  --green-dark:#3AB83A;
   --red:#FF5252;
-  --red-dark:#D93636;
   --white:#FFF8FC;
   --black:#1A0A12;
 }
@@ -34,66 +31,40 @@ body{
 
 body::before{
   content:'';
-  position:fixed;
-  inset:0;
+  position:fixed;inset:0;
   background-image:radial-gradient(circle, rgba(255,110,180,0.35) 3px, transparent 3px);
   background-size:28px 28px;
-  pointer-events:none;
-  z-index:0;
+  pointer-events:none;z-index:0;
 }
 
 /* ── HEADER ── */
 header{
-  position:relative;
-  z-index:10;
+  position:relative;z-index:10;
   padding:16px 32px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
+  display:flex;align-items:center;justify-content:space-between;
   background:var(--pink);
   border-bottom:6px solid var(--pink-dark);
   box-shadow:0 4px 0 rgba(0,0,0,0.12);
 }
-
 .logo{
-  font-family:'Space Mono',monospace;
-  font-weight:700;
-  font-size:18px;
-  color:var(--white);
-  text-shadow:2px 2px 0 var(--pink-dark);
-  text-decoration:none;
-  display:flex;
-  align-items:center;
-  gap:10px;
+  font-family:'Space Mono',monospace;font-weight:700;font-size:18px;
+  color:var(--white);text-shadow:2px 2px 0 var(--pink-dark);
+  text-decoration:none;display:flex;align-items:center;gap:10px;
 }
-
 .logo-studs{display:flex;gap:5px;}
-
 .logo-stud{
-  width:12px;height:12px;
-  background:var(--yellow);
-  border-radius:50%;
-  border:2px solid var(--yellow-dark);
+  width:12px;height:12px;background:var(--yellow);
+  border-radius:50%;border:2px solid var(--yellow-dark);
   box-shadow:0 -1px 0 rgba(255,255,255,0.4) inset;
 }
-
 nav{display:flex;gap:10px;}
-
 .nav-brick{
-  font-family:'Space Mono',monospace;
-  font-size:11px;
-  font-weight:700;
-  letter-spacing:1px;
-  text-transform:uppercase;
-  color:var(--black);
-  text-decoration:none;
-  padding:8px 14px;
-  border-radius:5px;
-  border-bottom:4px solid rgba(0,0,0,0.2);
-  border-right:2px solid rgba(0,0,0,0.1);
-  transition:transform 0.08s, filter 0.08s;
+  font-family:'Space Mono',monospace;font-size:11px;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;color:var(--black);
+  text-decoration:none;padding:8px 14px;border-radius:5px;
+  border-bottom:4px solid rgba(0,0,0,0.2);border-right:2px solid rgba(0,0,0,0.1);
+  transition:transform 0.08s,filter 0.08s;
 }
-
 .nav-brick:nth-child(1){background:var(--yellow);}
 .nav-brick:nth-child(2){background:var(--blue);color:var(--white);}
 .nav-brick:nth-child(3){background:var(--green);}
@@ -103,252 +74,136 @@ nav{display:flex;gap:10px;}
 
 /* ── PAGE ── */
 .page{
-  position:relative;
-  z-index:1;
-  max-width:760px;
-  margin:0 auto;
+  position:relative;z-index:1;
+  max-width:680px;margin:0 auto;
   padding:36px 24px 80px;
 }
 
-/* ── PAGE TITLE BRICK ── */
+/* ── PAGE TITLE ── */
 .page-title-block{
-  background:var(--pink);
-  border-radius:12px;
-  border-bottom:8px solid var(--pink-dark);
-  border-right:5px solid rgba(0,0,0,0.12);
-  padding:28px 32px 32px;
-  margin-bottom:32px;
-  position:relative;
+  background:var(--pink);border-radius:12px;
+  border-bottom:8px solid var(--pink-dark);border-right:5px solid rgba(0,0,0,0.12);
+  padding:24px 28px 28px;margin-bottom:32px;
 }
-
-.page-title-studs{display:flex;gap:10px;margin-bottom:16px;}
-
+.page-title-studs{display:flex;gap:10px;margin-bottom:14px;}
 .pt-stud{
-  width:18px;height:18px;
-  background:var(--pink-light);
-  border-radius:50%;
-  border:3px solid rgba(255,255,255,0.4);
-  box-shadow:0 -2px 0 rgba(255,255,255,0.3) inset;
+  width:16px;height:16px;background:var(--pink-light);border-radius:50%;
+  border:3px solid rgba(255,255,255,0.4);box-shadow:0 -2px 0 rgba(255,255,255,0.3) inset;
 }
-
 .page-title-block h1{
-  font-size:36px;
-  font-weight:900;
-  color:var(--white);
-  text-shadow:3px 3px 0 var(--pink-dark);
-  margin-bottom:6px;
+  font-size:28px;font-weight:900;color:var(--white);
+  text-shadow:2px 2px 0 var(--pink-dark);
 }
 
-.page-title-block p{
-  font-size:13px;
-  color:rgba(255,255,255,0.8);
-  font-family:'Space Mono',monospace;
-  letter-spacing:1px;
+/* ── DIARY ENTRIES ── */
+.entries{
+  display:flex;
+  flex-direction:column;
+  gap:0;
 }
 
-/* ── POST CARD ── */
-.post-card{
-  background:var(--white);
-  border-radius:12px;
-  border-bottom:7px solid #C8C0C5;
-  border-right:4px solid rgba(0,0,0,0.08);
-  margin-bottom:24px;
-  overflow:visible;
+.entry{
+  display:grid;
+  grid-template-columns:90px 1fr;
+  gap:0;
   position:relative;
-  transition:transform 0.1s;
 }
 
-.post-card::before,
-.post-card::after{
+/* タイムライン縦線 */
+.entry:not(:last-child)::after{
   content:'';
   position:absolute;
-  top:-10px;
-  width:18px;height:18px;
-  background:var(--white);
+  left:42px;
+  top:32px;
+  bottom:-1px;
+  width:2px;
+  background:rgba(255,110,180,0.25);
+}
+
+/* 日付列 */
+.entry-date{
+  padding:18px 0 18px 0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+  flex-shrink:0;
+}
+
+.date-dot{
+  width:14px;height:14px;
+  background:var(--pink);
   border-radius:50%;
-  border:2px solid rgba(0,0,0,0.1);
-  box-shadow:0 -1px 0 rgba(255,255,255,0.3) inset;
+  border:3px solid var(--pink-light);
+  box-shadow:0 0 0 2px var(--pink);
+  flex-shrink:0;
+  margin-top:4px;
 }
 
-.post-card::before{left:20px;}
-.post-card::after{left:50px;}
-
-.post-card:hover{transform:translateY(-3px);}
-
-/* カラーバー（上部アクセント） */
-.post-accent{
-  height:8px;
-  border-radius:12px 12px 0 0;
-}
-
-.post-inner{
-  padding:24px 28px 28px;
-}
-
-/* ── POST HEADER ── */
-.post-meta{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin-bottom:14px;
-}
-
-.post-tag{
+.date-text{
   font-family:'Space Mono',monospace;
-  font-size:9px;
-  font-weight:700;
-  letter-spacing:2px;
-  text-transform:uppercase;
-  padding:4px 10px;
-  border-radius:4px;
-  border-bottom:3px solid rgba(0,0,0,0.15);
-}
-
-.post-date{
-  font-family:'Space Mono',monospace;
-  font-size:10px;
-  color:#999;
+  font-size:9px;font-weight:700;
   letter-spacing:1px;
-}
-
-.post-title{
-  font-size:24px;
-  font-weight:900;
-  line-height:1.25;
-  margin-bottom:16px;
-  color:var(--black);
-}
-
-/* ── POST BODY ── */
-.post-body{
-  font-size:15px;
-  line-height:1.9;
-  color:#333;
-}
-
-.post-body p{
-  margin-bottom:12px;
-}
-
-.post-body p:last-child{margin-bottom:0;}
-
-/* ── REACTION BRICKS ── */
-.post-reactions{
-  display:flex;
-  gap:8px;
-  margin-top:20px;
-  padding-top:18px;
-  border-top:2px dashed rgba(0,0,0,0.08);
-  flex-wrap:wrap;
-}
-
-.reaction{
-  font-size:12px;
-  font-weight:700;
-  padding:6px 12px;
-  border-radius:6px;
-  border-bottom:3px solid rgba(0,0,0,0.15);
-  border-right:2px solid rgba(0,0,0,0.08);
-  cursor:default;
-  user-select:none;
-}
-
-/* ── QUOTE BLOCK inside posts ── */
-.post-quote{
-  background:var(--pink-light);
-  border-left:5px solid var(--pink);
-  border-radius:0 8px 8px 0;
-  padding:14px 18px;
-  margin:16px 0;
-  font-style:italic;
-  font-size:15px;
   color:var(--pink-dark);
-  font-weight:700;
+  writing-mode:vertical-rl;
+  text-orientation:mixed;
+  opacity:0.75;
 }
 
-/* ── COLOR VARIANTS ── */
-.accent-pink{background:var(--pink);}
-.accent-blue{background:var(--blue);}
-.accent-yellow{background:var(--yellow);}
-.accent-green{background:var(--green);}
-
-.tag-pink{background:var(--pink-light);color:var(--pink-dark);}
-.tag-blue{background:#d6edff;color:var(--blue-dark);}
-.tag-yellow{background:#fff5b8;color:#a08000;}
-.tag-green{background:#d4f7d4;color:#2a7a2a;}
-
-.react-pink{background:var(--pink-light);color:var(--pink-dark);}
-.react-blue{background:#d6edff;color:var(--blue-dark);}
-.react-yellow{background:#fff5b8;color:#a08000);}
-.react-green{background:#d4f7d4;color:#2a7a2a;}
-
-/* ── SECTION LABEL ── */
-.section-label{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin-bottom:20px;
+/* 本文列 */
+.entry-body{
+  background:var(--white);
+  border-radius:10px;
+  border-bottom:5px solid #C8C0C5;
+  border-right:3px solid rgba(0,0,0,0.07);
+  padding:16px 20px;
+  margin:12px 0 12px 12px;
+  font-size:14px;
+  line-height:1.85;
+  color:#333;
+  position:relative;
 }
 
-.section-label-brick{
-  background:var(--pink);
-  color:var(--white);
-  font-family:'Space Mono',monospace;
-  font-size:11px;
-  font-weight:700;
-  letter-spacing:2px;
-  text-transform:uppercase;
-  padding:6px 14px;
-  border-radius:5px;
-  border-bottom:4px solid var(--pink-dark);
-  border-right:2px solid rgba(0,0,0,0.1);
+/* 吹き出しの三角 */
+.entry-body::before{
+  content:'';
+  position:absolute;
+  left:-8px;top:18px;
+  border-top:7px solid transparent;
+  border-bottom:7px solid transparent;
+  border-right:8px solid var(--white);
 }
 
-.section-label-line{
-  flex:1;height:3px;
-  background:var(--pink);
-  border-radius:2px;opacity:0.3;
+.entry-title{
+  font-size:15px;font-weight:900;
+  color:var(--black);margin-bottom:6px;
+}
+
+.entry-quote{
+  background:var(--pink-light);
+  border-left:4px solid var(--pink);
+  border-radius:0 6px 6px 0;
+  padding:10px 14px;
+  margin:10px 0;
+  font-style:italic;font-size:13px;
+  color:var(--pink-dark);font-weight:700;
 }
 
 /* ── FOOTER ── */
 footer{
-  background:var(--pink-dark);
-  border-top:6px solid rgba(0,0,0,0.12);
-  padding:20px 32px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  position:relative;
-  z-index:1;
+  background:var(--pink-dark);border-top:6px solid rgba(0,0,0,0.12);
+  padding:20px 32px;display:flex;align-items:center;justify-content:space-between;
+  position:relative;z-index:1;
 }
-
-.footer-logo{
-  font-size:16px;font-weight:900;
-  color:var(--white);
-  text-shadow:2px 2px 0 rgba(0,0,0,0.2);
-}
-
+.footer-logo{font-size:16px;font-weight:900;color:var(--white);text-shadow:2px 2px 0 rgba(0,0,0,0.2);}
 .footer-studs{display:flex;gap:8px;}
-
-.f-stud{
-  width:14px;height:14px;
-  border-radius:50%;
-  border:2px solid rgba(255,255,255,0.4);
-}
-
+.f-stud{width:14px;height:14px;border-radius:50%;border:2px solid rgba(255,255,255,0.4);}
 .f-stud:nth-child(1){background:var(--yellow);}
 .f-stud:nth-child(2){background:var(--blue);}
 .f-stud:nth-child(3){background:var(--green);}
 .f-stud:nth-child(4){background:var(--red);}
 .f-stud:nth-child(5){background:var(--white);}
-
-.footer-copy{
-  font-family:'Space Mono',monospace;
-  font-size:9px;font-weight:700;
-  letter-spacing:2px;
-  color:rgba(255,255,255,0.6);
-  text-transform:uppercase;
-}
+.footer-copy{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,0.6);text-transform:uppercase;}
 </style>
 </head>
 <body>
@@ -372,192 +227,88 @@ footer{
 
 <div class="page">
 
-  <!-- PAGE TITLE -->
   <div class="page-title-block">
     <div class="page-title-studs">
       <div class="pt-stud"></div>
       <div class="pt-stud"></div>
       <div class="pt-stud"></div>
-      <div class="pt-stud"></div>
     </div>
     <h1>📝 Blog</h1>
-    <p>観た・感じた・語りたい — のログ</p>
   </div>
 
-  <div class="section-label">
-    <div class="section-label-brick">All Posts</div>
-    <div class="section-label-line"></div>
-  </div>
+  <div class="entries">
 
-  <div class="post-card">
-    <div class="post-accent accent-pink"></div>
-    <div class="post-inner">
-      <div class="post-meta">
-        <span class="post-tag tag-pink">感情ログ</span>
-        <span class="post-date">2026.06.12</span>
+    <div class="entry">
+      <div class="entry-date">
+        <div class="date-dot"></div>
+        <div class="date-text">2026.06.12</div>
       </div>
-      <h2 class="post-title">私がビーバーになる時</h2>
-      <div class="post-body">
-        <p>ちょっと不気味な感じが面白い（笑） トイストーリーも最初は不気味だったからね。ぜんぜん良い。</p>
+      <div class="entry-body">
+        <div class="entry-title">私がビーバーになる時</div>
+        ちょっと不気味な感じが面白い（笑） トイストーリーも最初は不気味だったからね。ぜんぜん良い。
       </div>
     </div>
-  </div>
 
-  <div class="post-card">
-    <div class="post-accent accent-pink"></div>
-    <div class="post-inner">
-      <div class="post-meta">
-        <span class="post-tag tag-pink">感情ログ</span>
-        <span class="post-date">2026.06.10</span>
+    <div class="entry">
+      <div class="entry-date">
+        <div class="date-dot"></div>
+        <div class="date-text">2026.06.10</div>
       </div>
-      <h2 class="post-title">私がビーバーになる時</h2>
-      <div class="post-body">
-        <p>まじで初っ端から泣かされる……お婆ちゃん……私もお婆ちゃん子だから、まじで「うぅ……」って泣きながら観た。</p>
+      <div class="entry-body">
+        <div class="entry-title">私がビーバーになる時</div>
+        まじで初っ端から泣かされる……お婆ちゃん……私もお婆ちゃん子だから、まじで「うぅ……」って泣きながら観た。
       </div>
     </div>
-  </div>
 
-  <div class="post-card">
-    <div class="post-accent accent-pink"></div>
-    <div class="post-inner">
-      <div class="post-meta">
-        <span class="post-tag tag-pink">レビュー</span>
-        <span class="post-date">2026.06.01</span>
+    <div class="entry">
+      <div class="entry-date">
+        <div class="date-dot"></div>
+        <div class="date-text">2026.06.01</div>
       </div>
-      <h2 class="post-title">よっしゃ！</h2>
-      <div class="post-body">
-        <p>理想はピクサーみたいなストーリーの漫画描きたい。
-        アーロとか最高。</p>
+      <div class="entry-body">
+        <div class="entry-title">よっしゃ！</div>
+        理想はピクサーみたいなストーリーの漫画描きたい。アーロとか最高。
       </div>
     </div>
-  </div>
 
-  <div class="post-card">
-    <div class="post-accent accent-pink"></div>
-    <div class="post-inner">
-      <div class="post-meta">
-        <span class="post-tag tag-pink">レビュー</span>
-        <span class="post-date">2026.06.01</span>
+    <div class="entry">
+      <div class="entry-date">
+        <div class="date-dot"></div>
+        <div class="date-text">2026.06.01</div>
       </div>
-      <h2 class="post-title">全部見た！</h2>
-      <div class="post-body">
-        <p>よしゃ！　ピクサー全部見たよ！
-          平均的に全部面白かった。
-          最近の作品は「ん？」ってなることはあったけど、ストーリーは全部面白かったと思う。</p>
+      <div class="entry-body">
+        <div class="entry-title">全部見た！</div>
+        よしゃ！　ピクサー全部見たよ！ 平均的に全部面白かった。最近の作品は「ん？」ってなることはあったけど、ストーリーは全部面白かったと思う。
       </div>
     </div>
-  </div>
 
-  <div class="post-card">
-    <div class="post-accent accent-pink"></div>
-    <div class="post-inner">
-      <div class="post-meta">
-        <span class="post-tag tag-pink">レビュー</span>
-        <span class="post-date">2026.05.23</span>
+    <div class="entry">
+      <div class="entry-date">
+        <div class="date-dot"></div>
+        <div class="date-text">2026.05.23</div>
       </div>
-      <h2 class="post-title">マイ・エレメント</h2>
-      <div class="post-body">
-        <p>可愛い恋愛もの</p>
-        <div class="post-quote">
-          火と水は絶対に相性が悪いのに、それに反して二人の相性は良くて、見てて可愛かった。
-        </div>
-        <p>とにかく可愛い映画だった。ヴィヴィステリアの花！！！</p>
-      </div>
-      <div class="post-reactions">
-        <span class="reaction react-pink">😭 泣いた</span>
-        <span class="reaction react-blue">🦕 アーロ好き</span>
-        <span class="reaction react-yellow">🎬 また観たい</span>
+      <div class="entry-body">
+        <div class="entry-title">マイ・エレメント</div>
+        可愛い恋愛もの。
+        <div class="entry-quote">火と水は絶対に相性が悪いのに、それに反して二人の相性は良くて、見てて可愛かった。</div>
+        とにかく可愛い映画だった。ヴィヴィステリアの花！！！
       </div>
     </div>
-  </div>
 
-  <!-- ── 記事① 少年とアーロ ── -->
-  <div class="post-card">
-    <div class="post-accent accent-pink"></div>
-    <div class="post-inner">
-      <div class="post-meta">
-        <span class="post-tag tag-pink">レビュー</span>
-        <span class="post-date">2026.05.08</span>
+    <div class="entry">
+      <div class="entry-date">
+        <div class="date-dot"></div>
+        <div class="date-text">2026.05.08</div>
       </div>
-      <h2 class="post-title">少年とアーロ</h2>
-      <div class="post-body">
-        <p>良かった！　アーロ可愛かった。</p>
-        <div class="post-quote">
-          最後のセリフがほとんどないエンディングも挑戦的で良かった
-        </div>
-        <p>言葉じゃなくて映像と音楽だけで語るあのラスト、ピクサーにしかできないと思う。セリフがないからこそ、受け取り方が自分次第になるのが好き。</p>
-      </div>
-      <div class="post-reactions">
-        <span class="reaction react-pink">😭 泣いた</span>
-        <span class="reaction react-blue">🦕 アーロ好き</span>
-        <span class="reaction react-yellow">🎬 また観たい</span>
+      <div class="entry-body">
+        <div class="entry-title">少年とアーロ</div>
+        良かった！　アーロ可愛かった。
+        <div class="entry-quote">最後のセリフがほとんどないエンディングも挑戦的で良かった</div>
+        言葉じゃなくて映像と音楽だけで語るあのラスト、ピクサーにしかできないと思う。
       </div>
     </div>
-  </div>
 
-  <!-- ── 記事② プレースホルダー ── -->
-  <div class="post-card">
-    <div class="post-accent accent-blue"></div>
-    <div class="post-inner">
-      <div class="post-meta">
-        <span class="post-tag tag-blue">感情ログ</span>
-        <span class="post-date">2026.04.21</span>
-      </div>
-      <h2 class="post-title">このシーンが好きすぎる問題</h2>
-      <div class="post-body">
-        <p>感情がぐちゃぐちゃになるやつ。なぜあの数分間でこんなに揺さぶられるのか、うまく言語化できないけど語りたい。</p>
-        <p>分からないけどめちゃくちゃ好き、という気持ちのまま残しておきたい記録。</p>
-      </div>
-      <div class="post-reactions">
-        <span class="reaction react-pink">😭 分かる</span>
-        <span class="reaction react-green">💬 語りたい</span>
-      </div>
-    </div>
   </div>
-
-  <!-- ── 記事③ プレースホルダー ── -->
-  <div class="post-card">
-    <div class="post-accent accent-yellow"></div>
-    <div class="post-inner">
-      <div class="post-meta">
-        <span class="post-tag tag-yellow">音楽</span>
-        <span class="post-date">2026.03.15</span>
-      </div>
-      <h2 class="post-title">音楽が来た瞬間に終わった</h2>
-      <div class="post-body">
-        <p>映像と音楽が重なるあの瞬間。Michael Giacchino の仕事は反則すぎると思う。</p>
-        <div class="post-quote">
-          あのテーマが流れた瞬間、もう全部持っていかれた
-        </div>
-      </div>
-      <div class="post-reactions">
-        <span class="reaction react-yellow">🎵 神曲</span>
-        <span class="reaction react-pink">😭 泣いた</span>
-        <span class="reaction react-blue">🎬 演出最高</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── 記事④ プレースホルダー ── -->
-  <div class="post-card">
-    <div class="post-accent accent-green"></div>
-    <div class="post-inner">
-      <div class="post-meta">
-        <span class="post-tag tag-green">表情</span>
-        <span class="post-date">2026.02.03</span>
-      </div>
-      <h2 class="post-title">この表情、なんなんだろう</h2>
-      <div class="post-body">
-        <p>分からないけどめちゃくちゃ好き。ピクサーのキャラクターの表情には言葉にできない何かがある。</p>
-        <p>正しい解釈じゃなくていい。「なんか良い」でいい。それだけ。</p>
-      </div>
-      <div class="post-reactions">
-        <span class="reaction react-green">🤔 考えた</span>
-        <span class="reaction react-pink">💗 好き</span>
-      </div>
-    </div>
-  </div>
-
 </div>
 
 <footer>
