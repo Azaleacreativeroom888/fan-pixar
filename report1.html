@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ピクサー映画の感想 — Pixar Fan Log</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --pink:#FF6EB4;
+  --pink-dark:#E0509A;
+  --pink-light:#FFB3D9;
+  --yellow:#FFE14D;
+  --yellow-dark:#E6C400;
+  --blue:#4DAAFF;
+  --blue-dark:#2288E6;
+  --green:#5CE65C;
+  --green-dark:#3AB83A;
+  --red:#FF5252;
+  --red-dark:#D93636;
+  --white:#FFF8FC;
+  --black:#1A0A12;
+}
+
+body{
+  font-family:'Nunito',sans-serif;
+  background:var(--pink-light);
+  color:var(--black);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:radial-gradient(circle, rgba(255,110,180,0.35) 3px, transparent 3px);
+  background-size:28px 28px;
+  pointer-events:none;z-index:0;
+}
+
+/* ── HEADER ── */
+header{
+  position:relative;z-index:10;
+  padding:16px 32px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--pink);
+  border-bottom:6px solid var(--pink-dark);
+  box-shadow:0 4px 0 rgba(0,0,0,0.12);
+}
+.logo{
+  font-family:'Space Mono',monospace;font-weight:700;font-size:18px;
+  color:var(--white);text-shadow:2px 2px 0 var(--pink-dark);
+  text-decoration:none;display:flex;align-items:center;gap:10px;
+}
+.logo-studs{display:flex;gap:5px;}
+.logo-stud{width:12px;height:12px;background:var(--yellow);border-radius:50%;border:2px solid var(--yellow-dark);box-shadow:0 -1px 0 rgba(255,255,255,0.4) inset;}
+nav{display:flex;gap:10px;}
+.nav-brick{
+  font-family:'Space Mono',monospace;font-size:11px;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;color:var(--black);
+  text-decoration:none;padding:8px 14px;border-radius:5px;
+  border-bottom:4px solid rgba(0,0,0,0.2);border-right:2px solid rgba(0,0,0,0.1);
+  transition:transform 0.08s,filter 0.08s;
+}
+.nav-brick:nth-child(1){background:var(--yellow);}
+.nav-brick:nth-child(2){background:var(--blue);color:var(--white);}
+.nav-brick:nth-child(3){background:var(--green);}
+.nav-brick:nth-child(4){background:var(--red);color:var(--white);}
+.nav-brick:hover{transform:translateY(-3px);filter:brightness(1.05);}
+.nav-brick:active{transform:translateY(1px);}
+
+/* ── PAGE ── */
+.page{
+  position:relative;z-index:1;
+  max-width:860px;margin:0 auto;
+  padding:36px 24px 80px;
+}
+
+/* ── PAGE TITLE ── */
+.page-title-block{
+  background:var(--pink);border-radius:12px;
+  border-bottom:8px solid var(--pink-dark);border-right:5px solid rgba(0,0,0,0.12);
+  padding:24px 28px 28px;margin-bottom:32px;
+}
+.page-title-studs{display:flex;gap:10px;margin-bottom:14px;}
+.pt-stud{width:16px;height:16px;background:var(--pink-light);border-radius:50%;border:3px solid rgba(255,255,255,0.4);}
+.page-title-block h1{font-size:28px;font-weight:900;color:var(--white);text-shadow:2px 2px 0 var(--pink-dark);margin-bottom:4px;}
+.page-title-block p{font-size:11px;font-family:'Space Mono',monospace;letter-spacing:2px;color:rgba(255,255,255,0.7);text-transform:uppercase;}
+
+/* ── TABLE ── */
+.table-wrap{
+  background:var(--white);
+  border-radius:12px;
+  border-bottom:7px solid #C8C0C5;
+  border-right:4px solid rgba(0,0,0,0.08);
+  overflow:hidden;
+  position:relative;
+}
+.table-wrap::before,.table-wrap::after{
+  content:'';position:absolute;top:-10px;
+  width:18px;height:18px;background:var(--white);
+  border-radius:50%;border:2px solid rgba(0,0,0,0.1);
+}
+.table-wrap::before{left:20px;}
+.table-wrap::after{left:50px;}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+/* ヘッダー行 */
+thead tr{
+  background:var(--pink);
+}
+thead th{
+  font-family:'Space Mono',monospace;
+  font-size:10px;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;
+  color:var(--white);
+  padding:14px 16px;
+  text-align:left;
+  border-right:1px solid rgba(255,255,255,0.15);
+  white-space:nowrap;
+}
+thead th:last-child{border-right:none;}
+
+/* データ行 */
+tbody tr{
+  border-bottom:1px solid rgba(0,0,0,0.06);
+  transition:background 0.1s;
+}
+tbody tr:last-child{border-bottom:none;}
+tbody tr:hover{background:rgba(255,110,180,0.04);}
+
+/* 偶数行に薄いピンク */
+tbody tr:nth-child(even){background:rgba(255,179,217,0.12);}
+tbody tr:nth-child(even):hover{background:rgba(255,110,180,0.07);}
+
+td{
+  padding:14px 16px;
+  font-size:14px;
+  line-height:1.6;
+  vertical-align:top;
+  border-right:1px solid rgba(0,0,0,0.05);
+}
+td:last-child{border-right:none;}
+
+/* タイトル列 */
+.col-title{
+  font-weight:900;
+  font-size:15px;
+  min-width:140px;
+}
+
+/* 年・時間列 */
+.col-year, .col-time{
+  font-family:'Space Mono',monospace;
+  font-size:12px;
+  white-space:nowrap;
+  color:#666;
+}
+
+/* 主人公列 */
+.col-hero{
+  font-weight:700;
+  min-width:90px;
+}
+
+/* 感想列 */
+.col-review{
+  min-width:200px;
+  color:#444;
+  font-size:13px;
+  line-height:1.75;
+}
+
+/* カラーアクセント（タイトル左） */
+td.col-title{
+  border-left:4px solid var(--pink);
+}
+tbody tr:nth-child(2) td.col-title{border-left-color:var(--blue);}
+tbody tr:nth-child(3) td.col-title{border-left-color:var(--yellow-dark);}
+tbody tr:nth-child(4) td.col-title{border-left-color:var(--green-dark);}
+tbody tr:nth-child(5) td.col-title{border-left-color:var(--red);}
+tbody tr:nth-child(6) td.col-title{border-left-color:var(--pink);}
+tbody tr:nth-child(7) td.col-title{border-left-color:var(--blue);}
+tbody tr:nth-child(8) td.col-title{border-left-color:var(--yellow-dark);}
+tbody tr:nth-child(9) td.col-title{border-left-color:var(--green-dark);}
+tbody tr:nth-child(10) td.col-title{border-left-color:var(--red);}
+tbody tr:nth-child(11) td.col-title{border-left-color:var(--pink);}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--pink-dark);border-top:6px solid rgba(0,0,0,0.12);
+  padding:20px 32px;display:flex;align-items:center;justify-content:space-between;
+  position:relative;z-index:1;
+}
+.footer-logo{font-size:16px;font-weight:900;color:var(--white);text-shadow:2px 2px 0 rgba(0,0,0,0.2);}
+.footer-studs{display:flex;gap:8px;}
+.f-stud{width:14px;height:14px;border-radius:50%;border:2px solid rgba(255,255,255,0.4);}
+.f-stud:nth-child(1){background:var(--yellow);}
+.f-stud:nth-child(2){background:var(--blue);}
+.f-stud:nth-child(3){background:var(--green);}
+.f-stud:nth-child(4){background:var(--red);}
+.f-stud:nth-child(5){background:var(--white);}
+.footer-copy{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,0.6);text-transform:uppercase;}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">
+    <div class="logo-studs">
+      <div class="logo-stud"></div>
+      <div class="logo-stud"></div>
+      <div class="logo-stud"></div>
+    </div>
+    PIXAR FAN LOG
+  </a>
+  <nav>
+    <a href="index.html" class="nav-brick">Home</a>
+    <a href="blog.html" class="nav-brick">Blog</a>
+    <a href="gallery.html" class="nav-brick">Gallery</a>
+    <a href="about.html" class="nav-brick">About</a>
+  </nav>
+</header>
+
+<div class="page">
+
+  <div class="page-title-block">
+    <div class="page-title-studs">
+      <div class="pt-stud"></div>
+      <div class="pt-stud"></div>
+      <div class="pt-stud"></div>
+    </div>
+    <h1>🎬 ピクサー映画の感想</h1>
+    <p>Report 01 — Review Log</p>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>タイトル</th>
+          <th>放映年</th>
+          <th>時間</th>
+          <th>主人公</th>
+          <th>感想</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-title">トイ・ストーリー</td>
+          <td class="col-year">1995</td>
+          <td class="col-time">1h 21m</td>
+          <td class="col-hero">ウッディ</td>
+          <td class="col-review">ここに感想を書いてね</td>
+        </tr>
+        <tr>
+          <td class="col-title">バグズ・ライフ</td>
+          <td class="col-year">1998</td>
+          <td class="col-time">1h 35m</td>
+          <td class="col-hero">フリック</td>
+          <td class="col-review">ここに感想を書いてね</td>
+        </tr>
+        <tr>
+          <td class="col-title">トイ・ストーリー2</td>
+          <td class="col-year">1999</td>
+          <td class="col-time">1h 32m</td>
+          <td class="col-hero">ウッディ</td>
+          <td class="col-review">ここに感想を書いてね</td>
+        </tr>
+        <tr>
+          <td class="col-title">モンスターズ・インク</td>
+          <td class="col-year">2001</td>
+          <td class="col-time">1h 32m</td>
+          <td class="col-hero">サリー</td>
+          <td class="col-review">ここに感想を書いてね</td>
+        </tr>
+        <tr>
+          <td class="col-title">ファインディング・ニモ</td>
+          <td class="col-year">2003</td>
+          <td class="col-time">1h 40m</td>
+          <td class="col-hero">マーリン</td>
+          <td class="col-review">ここに感想を書いてね</td>
+        </tr>
+        <tr>
+          <td class="col-title">Mr.インクレディブル</td>
+          <td class="col-year">2004</td>
+          <td class="col-time">1h 55m</td>
+          <td class="col-hero">Mr.インクレディブル</td>
+          <td class="col-review">ここに感想を書いてね</td>
+        </tr>
+        <tr>
+          <td class="col-title">カーズ</td>
+          <td class="col-year">2006</td>
+          <td class="col-time">1h 57m</td>
+          <td class="col-hero">ライトニング</td>
+          <td class="col-review">ここに感想を書いてね</td>
+        </tr>
+        <tr>
+          <td class="col-title">レミーのおいしいレストラン</td>
+          <td class="col-year">2007</td>
+          <td class="col-time">1h 51m</td>
+          <td class="col-hero">レミー</td>
+          <td class="col-review">ここに感想を書いてね</td>
+        </tr>
+        <tr>
+          <td class="col-title">WALL-E</td>
+          <td class="col-year">2008</td>
+          <td class="col-time">1h 38m</td>
+          <td class="col-hero">WALL-E</td>
+          <td class="col-review">ここに感想を書いてね</td>
+        </tr>
+        <tr>
+          <td class="col-title">カールじいさんの空飛ぶ家</td>
+          <td class="col-year">2009</td>
+          <td class="col-time">1h 36m</td>
+          <td class="col-hero">カール</td>
+          <td class="col-review">ここに感想を書いてね</td>
+        </tr>
+        <tr>
+          <td class="col-title">トイ・ストーリー3</td>
+          <td class="col-year">2010</td>
+          <td class="col-time">1h 43m</td>
+          <td class="col-hero">ウッディ</td>
+          <td class="col-review">ここに感想を書いてね</td>
+        </tr>
+        <tr>
+          <td class="col-title">メリダとおそろしの森</td>
+          <td class="col-year">2012</td>
+          <td class="col-time">1h 33m</td>
+          <td class="col-hero">メリダ</td>
+          <td class="col-review">ここに感想を書いてね</td>
+        </tr>
+        <tr>
+          <td class="col-title">モンスターズ・ユニバーシティ</td>
+          <td class="col-year">2013</td>
+          <td class="col-time">1h 44m</td>
+          <td class="col-hero">マイク</td>
+          <td class="col-review">ここに感想を書いてね</td>
+        </tr>
+        <tr>
+          <td class="col-title">インサイド・ヘッド</td>
+          <td class="col-year">2015</td>
+          <td class="col-time">1h 35m</td>
+          <td class="col-hero">ライリー / ヨロコビ</td>
+          <td class="col-review">ここに感想を書いてね</td>
+        </tr>
+        <tr>
+          <td class="col-title">アーロと少年</td>
+          <td class="col-year">2015</td>
+          <td class="col-time">1h 33m</td>
+          <td class="col-hero">アーロ</td>
+          <td class="col-review">良かった！アーロ可愛かった。最後のセリフがほとんどないエンディングも挑戦的で良かった。</td>
+        </tr>
+        <tr>
+          <td class="col-title">ファインディング・ドリー</td>
+          <td class="col-year">2016</td>
+          <td class="col-time">1h 37m</td>
+          <td class="col-hero">ドリー</td>
+          <td class="col-review">ここに感想を書いてね</td>
+        </tr>
+        <tr>
+          <td class="col-title">カーズ3</td>
+          <td class="col-year">2017</td>
+          <td class="col-time">1h 42m</td>
+          <td class="col-hero">ライトニング</td>
+          <td class="col-review">ここに感想を書いてね</td>
+        </tr>
+        <tr>
+          <td class="col-title">リメンバー・ミー</td>
+          <td class="col-year">2017</td>
+          <td class="col-time">1h 45m</td>
+          <td class="col-hero">ミゲル</td>
+          <td class="col-review">ここに感想を書いてね</td>
+        </tr>
+        <tr>
+          <td class="col-title">インクレディブル・ファミリー</td>
+          <td class="col-year">2018</td>
+          <td class="col-time">1h 58m</td>
+          <td class="col-hero">イラスティガール</td>
+          <td class="col-review">ここに感想を書いてね</td>
+        </tr>
+        <tr>
+          <td class="col-title">トイ・ストーリー4</td>
+          <td class="col-year">2019</td>
+          <td class="col-time">1h 40m</td>
+          <td class="col-hero">ウッディ</td>
+          <td class="col-review">ここに感想を書いてね</td>
+        </tr>
+        <tr>
+          <td class="col-title">オンワード</td>
+          <td class="col-year">2020</td>
+          <td class="col-time">1h 42m</td>
+          <td class="col-hero">イアン</td>
+          <td class="col-review">ここに感想を書いてね</td>
+        </tr>
+        <tr>
+          <td class="col-title">ソウルフル・ワールド</td>
+          <td class="col-year">2020</td>
+          <td class="col-time">1h 40m</td>
+          <td class="col-hero">ジョー</td>
+          <td class="col-review">ここに感想を書いてね</td>
+        </tr>
+        <tr>
+          <td class="col-title">ルカ</td>
+          <td class="col-year">2021</td>
+          <td class="col-time">1h 41m</td>
+          <td class="col-hero">ルカ</td>
+          <td class="col-review">ここに感想を書いてね</td>
+        </tr>
+        <tr>
+          <td class="col-title">私ときどきレッサーパンダ</td>
+          <td class="col-year">2022</td>
+          <td class="col-time">1h 40m</td>
+          <td class="col-hero">メイ</td>
+          <td class="col-review">ここに感想を書いてね</td>
+        </tr>
+        <tr>
+          <td class="col-title">バズ・ライトイヤー</td>
+          <td class="col-year">2022</td>
+          <td class="col-time">1h 45m</td>
+          <td class="col-hero">バズ</td>
+          <td class="col-review">ここに感想を書いてね</td>
+        </tr>
+        <tr>
+          <td class="col-title">マイ・エレメント</td>
+          <td class="col-year">2023</td>
+          <td class="col-time">1h 41m</td>
+          <td class="col-hero">エンバー</td>
+          <td class="col-review">可愛い恋愛もの。火と水は絶対に相性が悪いのに、それに反して二人の相性は良くて、見てて可愛かった。ヴィヴィステリアの花！！！</td>
+        </tr>
+        <tr>
+          <td class="col-title">インサイド・ヘッド2</td>
+          <td class="col-year">2024</td>
+          <td class="col-time">1h 40m</td>
+          <td class="col-hero">ライリー / ヨロコビ</td>
+          <td class="col-review">ここに感想を書いてね</td>
+        </tr>
+        <tr>
+          <td class="col-title">私がビーバーになる時</td>
+          <td class="col-year">2025</td>
+          <td class="col-time">1h 37m</td>
+          <td class="col-hero">—</td>
+          <td class="col-review">ちょっと不気味な感じが面白い（笑）トイストーリーも最初は不気味だったからね。まじで初っ端から泣かされる……お婆ちゃん……私もお婆ちゃん子だから泣きながら観た。</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-logo">PIXAR FAN LOG</div>
+  <div class="footer-studs">
+    <div class="f-stud"></div>
+    <div class="f-stud"></div>
+    <div class="f-stud"></div>
+    <div class="f-stud"></div>
+    <div class="f-stud"></div>
+  </div>
+  <div class="footer-copy">© Fan Log 2026</div>
+</footer>
+
+</body>
+</html>
