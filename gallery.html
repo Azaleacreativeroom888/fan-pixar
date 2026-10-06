@@ -200,6 +200,38 @@ nav{display:flex;gap:10px;}
 .gallery-item:nth-child(2) .gallery-caption-sub,
 .gallery-item:nth-child(7) .gallery-caption-sub{color:rgba(0,0,0,0.4);}
 
+/* ── REPORT LINK ── */
+.report-link{
+  display:flex;
+  align-items:center;
+  gap:20px;
+  background:var(--pink);
+  border-radius:12px;
+  border-bottom:6px solid var(--pink-dark);
+  border-right:4px solid rgba(0,0,0,0.1);
+  padding:20px 24px;
+  margin-bottom:16px;
+  text-decoration:none;
+  color:var(--white);
+  transition:transform 0.1s,filter 0.1s;
+  position:relative;
+}
+.report-link::before{
+  content:'';
+  position:absolute;top:-9px;left:20px;
+  width:16px;height:16px;
+  background:var(--pink);
+  border-radius:50%;
+  border:2px solid rgba(255,255,255,0.3);
+}
+.report-link:hover{transform:translateY(-3px);filter:brightness(1.05);}
+.report-link:active{transform:translateY(1px);}
+.report-icon{font-size:32px;flex-shrink:0;}
+.report-text{flex:1;}
+.report-title{font-size:18px;font-weight:900;text-shadow:1px 1px 0 var(--pink-dark);margin-bottom:4px;}
+.report-sub{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.65);}
+.report-arrow{font-size:22px;font-weight:900;opacity:0.7;}
+
 /* ── UPLOAD CTA ── */
 .upload-cta{
   background:var(--white);
@@ -371,6 +403,26 @@ footer{
       </div>
     </div>
 
+  </div>
+
+  <div class="section-label" style="margin-top:32px;">
+    <div class="section-label-brick">Report</div>
+    <div class="section-label-line"></div>
+  </div>
+
+  <a href="report1.html" class="report-link">
+    <div class="report-icon">🎬</div>
+    <div class="report-text">
+      <div class="report-title">ピクサー映画の感想</div>
+      <div class="report-sub">REPORT 01 — Review Log</div>
+    </div>
+    <div class="report-arrow">→</div>
+  </a>
+
+  <div class="upload-cta">
+    <div class="upload-cta-icon">➕</div>
+    <div class="upload-cta-text">ここに画像を追加してね</div>
+    <div class="upload-cta-sub">img タグの src に画像ファイルを指定</div>
   </div>
 
 </div>
